@@ -3,39 +3,36 @@
 #define ll long long
 
 using namespace std;
-ll ans=0;
-ll N,W;
-void dfs(ll id,ll curW,ll cur,vector<ll>&v,vector<ll>&w)
+int wt[105],val[105];
+ll dp[105][100005];
+ll func(int idx,int wt_left)
 {
-    if(curW>W)return;
-    if(id==W)
-    {
-        ans=max(ans,cur);return;
-    }
-    dfs(id+1,W,cur,v,w);
-    dfs(id+1,W+w[id],cur+v[id],v,w);
+    if(wt_left==0)return 0;
+    if(idx<0)return 0;
+    if(dp[idx][wt_left]!=-1)return dp[idx][wt_left];
+    ll ans=func(idx-1,wt_left);
+    if(wt_left-wt[idx]>=0)
+    ans=max(ans,func(idx-1,wt_left-wt[idx])+val[idx]);
+    return dp[idx][wt_left]=ans;
 }
 void solve()
 {
-
-  cin>>N>>W;
-  vector<ll>w(N);
-  vector<ll>v(N);
-  for(int i=0; i<N; i++)
+  memset(dp,-1,sizeof(dp));
+  int n,w;
+  cin>>n>>w;
+  for(int i=0; i<n; i++)
   {
-
-      cin>>w[i]>>v[i];
+      cin>>wt[i]>>val[i];
   }
-  ans=0;
-  dfs(0,0,0,v,w);
-  cout<<ans<<endl;
+  cout<<func(n-1,w);
 }
 int main()
 {
-    int t;
-    cin>>t;
+    int t=1;
+    //cin>>t;
     while(t--)
     {
         solve();
     }
 }
+
