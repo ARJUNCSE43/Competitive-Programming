@@ -1,9 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
 const int N=1e5+9;
-int a[N];
-int t[N*4];
+ll a[N];
+ll t[N*4];
 
 
 void build(int node,int b,int e)
@@ -20,7 +21,7 @@ void build(int node,int b,int e)
 
     t[node]=t[l]+t[r];
 }
-int query(int node,int b, int e, int i, int j)
+ll query(int node,int b, int e, int i, int j)
 {
 
     if(i>e || j<b)
@@ -35,13 +36,13 @@ int query(int node,int b, int e, int i, int j)
     int r=node*2+1;
     int mid=(b+e)/2;
 
-    int p1=query(l,b,mid,i,j);
-    int p2=query(r,mid+1,e,i,j);
+    ll p1=query(l,b,mid,i,j);
+    ll p2=query(r,mid+1,e,i,j);
 
     return p1+p2;
 }
 
-void update(int node,int b, int e, int i,int val)
+void update(int node,int b, int e, int i,ll val)
 {
 	if(i>e || i<b)
 	{
